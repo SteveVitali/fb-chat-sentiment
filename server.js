@@ -20,6 +20,7 @@ app.use(express.static(__dirname + '/static/js'));
 app.use(express.static(__dirname + '/static/css'));
 
 require('./config/routes')(app);
+require('./config/db')(mongoose);
 
 app.listen(port, function () {
 	console.log('Listening on', port);
