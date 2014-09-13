@@ -5,7 +5,7 @@ app.ThreadChoiceView = Backbone.View.extend({
     tagName : 'div',
         
     events : {
-        'click .analyze-button': 'analyzeThread'
+        'click .thread-choice-link': 'analyzeThread'
     },
     
     initialize : function(model, parentView) {
@@ -23,7 +23,6 @@ app.ThreadChoiceView = Backbone.View.extend({
     },
 
     analyzeThread: function(e) {
-        console.log('Analyze thread motherfucker', model);
-        this.parentView.analyzeThread(model);
+        this.parentView.analyzeThread(this.model);
     }
 });

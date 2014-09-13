@@ -58,5 +58,18 @@ app.MainView = Backbone.View.extend({
                 that.$('.thread-list').append( thread_choice.render().el );
             }
         });
+    },
+
+    analyzeThread: function(thread) {
+        console.log('begin analysis of', thread);
+        $.ajax({
+            type : 'POST',
+            url: '/thread/analyze-sentiment',
+            data: { thread: thread },
+            dataType: 'json',
+            success: function(analysis) {
+                console.log('Thread analyzed, instantiating analysis subview with data', analysis);
+            }
+        });
     }
 });
