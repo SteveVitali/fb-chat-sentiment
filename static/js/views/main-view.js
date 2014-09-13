@@ -10,7 +10,7 @@ app.MainView = Backbone.View.extend({
     
     initialize: function(initial_data) {
         this.subviews = {};
-        this.threads = [];
+        this.threads = { data: []};
         // Other stuff
         this.render();
     },
@@ -33,21 +33,27 @@ app.MainView = Backbone.View.extend({
         this.subviews = {};
         this.render();
     },
-    
-    loadMessages: function(url) {
+
+    loadThreads: function(url) {
         var that = this;
         FB.api(url || '/me/inbox', function(response) {
-            that.threads = that.threads.concat(response['data']);
+            console.log('welp', response);
+            that.threads.data = that.threads.data.concat(response['data']);
             if (response['paging']) {
-                console.log('Calling this shit again');
-                that.loadMessages(response['paging']['next']);
+                console.log('Calling this shit again; just kidding');
+                //that.loadThreads(response['paging']['next']);
+                that.displayThreads();
             } else {
-                console.log('Threads', that.threads);
+                that.displayThreads();
             }
         });
     },
 
-    analyzeFBMessages: function(e) {
-        
-    },
+    displayThreads: function() {
+        var that = this;
+        _.each(this.threads.data, function(thread) {
+            var thread_choice = new app.ThreadChoiceView(thread, that);
+            that.$el.append( thread_choice.render().el );
+        });
+    }
 });

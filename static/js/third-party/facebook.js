@@ -32,7 +32,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '322635821252218',
+    appId      : '368483913303173',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -70,5 +70,5 @@
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     console.log('Welcome! Doing other stuff now...');
-    app.App.loadMessages();
+    app.App.loadThreads();
   }
