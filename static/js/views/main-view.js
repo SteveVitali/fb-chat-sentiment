@@ -5,7 +5,7 @@ app.MainView = Backbone.View.extend({
     el: '#main-view',
 
     events : {
-        
+        'click .analyze-fb': 'analyzeFBMessages'
     },
     
     initialize: function(initial_data) {
@@ -31,5 +31,9 @@ app.MainView = Backbone.View.extend({
         }
         this.subviews = {};
         this.render();
+    },
+    
+    analyzeFBMessages: function(e) {
+        
     }
 });
