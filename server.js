@@ -1,6 +1,6 @@
 var express  = require('express');
 var mongoose = require( 'mongoose' );
-var models   = require('models');
+var models   = require('./models');
 var app      = express();
 var port     = process.env.PORT || 3000;
 
@@ -17,7 +17,7 @@ app.use(express.bodyParser());
 app.use(express.static(__dirname + '/static/js/third-party'));
 app.use(express.static(__dirname + '/static/js/views'));
 
-require('./config/routes')(app, __dirname);
+require('./config/routes')(app);
 
 app.listen(port, function () {
 	console.log( "Listening on ", port);

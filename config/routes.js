@@ -1,6 +1,6 @@
 
-var api = require('./controllers/api');
+var api = require('../controllers/api');
 
 module.exports = function(app) {
-    app.get('/index', api.index);
+    app.get('/', api.index);
 }
