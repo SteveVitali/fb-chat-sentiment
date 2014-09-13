@@ -1,6 +1,6 @@
 script#thread-choice(type='text/template').
-  <div class="panel panel-default">
-  	{{#each to.data}}
-  		{{name}}
-  	{{/each}}
-  </div>
+  <a href="#" class="list-group-item">
+    <p class="list-group-item-text">
+        {{commaSeparatedList to.data 'name'}}
+    </p>
+  </a>

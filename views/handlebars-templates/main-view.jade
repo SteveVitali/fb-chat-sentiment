@@ -1,9 +1,16 @@
 script#main-view-template(type='text/template').
-  <div class="container">
-    <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" scope="read_mailbox">
+  <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" scope="read_mailbox">
+  </div>
+  <div id="status">
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        Choose a conversation to analyze
+      </h3>
     </div>
-    <div id="status">
-    </div>
-    <div id="messages-and-shit">
+    <div class="panel-body">
+      <div class="thread-list list-group">
+      </div>
     </div>
   </div>

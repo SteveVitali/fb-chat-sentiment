@@ -52,8 +52,11 @@ app.MainView = Backbone.View.extend({
     displayThreads: function() {
         var that = this;
         _.each(this.threads.data, function(thread) {
-            var thread_choice = new app.ThreadChoiceView(thread, that);
-            that.$el.append( thread_choice.render().el );
+            // Omit conversations with more than 2 people for now
+            if (thread.to.data.length <= 2) {
+                var thread_choice = new app.ThreadChoiceView(thread, that);
+                that.$('.thread-list').append( thread_choice.render().el );
+            }
         });
     }
 });
