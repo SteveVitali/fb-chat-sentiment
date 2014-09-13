@@ -1,0 +1,20 @@
+extends ../layouts/default
+
+block head
+  include ./head
+block content
+  p welp
+  script(src='/handlebars.js')
+  script(src='/handlebars-helpers.js')
+  script(src='/Backbone.js')
+  - // include handlebars templates here
+  - // bb models
+
+  - // bb collections
+
+  - // bb views
+
+  - // bb routers
+  script(src='/router.js')
+  - // app
+  script(src='/app.js')
