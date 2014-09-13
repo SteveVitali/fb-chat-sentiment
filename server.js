@@ -16,11 +16,13 @@ app.use(express.bodyParser());
 
 app.use(express.static(__dirname + '/static/js/third-party'));
 app.use(express.static(__dirname + '/static/js/views'));
+app.use(express.static(__dirname + '/static/js'));
+app.use(express.static(__dirname + '/static/css'));
 
 require('./config/routes')(app);
 
 app.listen(port, function () {
-	console.log( "Listening on ", port);
+	console.log('Listening on', port);
 });
 
 // Expose app

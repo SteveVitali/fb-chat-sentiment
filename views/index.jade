@@ -3,17 +3,17 @@ extends ./layouts/default
 block head
   include ./head
 block content
-  p welp
+  #main-view
   script(src='/handlebars.js')
   script(src='/handlebars-helpers.js')
   script(src='/Backbone.js')
-  - // include handlebars templates here
+  include ./handlebars-templates/main-view
   - // bb models
 
   - // bb collections
 
   - // bb views
-
+  script(src='main-view.js')
   - // bb routers
   script(src='/router.js')
   - // app
