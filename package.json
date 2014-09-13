@@ -1,0 +1,22 @@
+{
+  "name": "PennApps2014F",
+  "version": "1.0.0",
+  "description": "PennApps2014 Fall Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SteveVitali/PennApps2014Fall.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SteveVitali/PennApps2014Fall/issues"
+  },
+  "homepage": "https://github.com/SteveVitali/PennApps2014Fall",
+  "dependencies": {
+    "sentiment": "^1.0.1"
+  }
+}
