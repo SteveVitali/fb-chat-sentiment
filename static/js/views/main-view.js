@@ -10,6 +10,7 @@ app.MainView = Backbone.View.extend({
     
     initialize: function(initial_data) {
         this.subviews = {};
+        this.threads = [];
         // Other stuff
         this.render();
     },
@@ -33,7 +34,20 @@ app.MainView = Backbone.View.extend({
         this.render();
     },
     
+    loadMessages: function(url) {
+        var that = this;
+        FB.api(url || '/me/inbox', function(response) {
+            that.threads = that.threads.concat(response['data']);
+            if (response['paging']) {
+                console.log('Calling this shit again');
+                that.loadMessages(response['paging']['next']);
+            } else {
+                console.log('Threads', that.threads);
+            }
+        });
+    },
+
     analyzeFBMessages: function(e) {
         
-    }
+    },
 });
