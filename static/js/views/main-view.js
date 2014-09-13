@@ -64,11 +64,15 @@ app.MainView = Backbone.View.extend({
         console.log('begin analysis of', thread);
         $.ajax({
             type : 'POST',
-            url: '/thread/analyze-sentiment',
+            url: '/thread',
             data: { thread: thread },
             dataType: 'json',
-            success: function(analysis) {
-                console.log('Thread analyzed, instantiating analysis subview with data', analysis);
+            success: function(new_thread) {
+                console.log('Created or updated existing thread in Mongo', new_thread);
+                console.log('Now going to analyze dat sentiment');
+                $.get('/thread/'+new_thread._id+'/analyze-sentiment', function(analysis) {
+                    console.log('Got some analysis and cached it in the DB', analysis);
+                });
             }
         });
     }
