@@ -72,8 +72,8 @@ app.MainView = Backbone.View.extend({
                 console.log('Created or updated existing thread in Mongo', new_thread);
                 console.log('Now going to analyze dat sentiment');
                 $.get('/thread/'+new_thread._id+'/analyze-sentiment', function(analysis) {
-                    console.log('Got some analysis and cached it in the DB', analysis);
-                    var sentiment_view = new app.SentimentAnalysisView(analysis, that);
+                    console.log('Got some analysis and cached it in the DB', analysis.thread);
+                    var sentiment_view = new app.SentimentAnalysisView(analysis.thread, that);
                     that.$el.html(sentiment_view.render().el);
                     sentiment_view.drawGraph();
                 });

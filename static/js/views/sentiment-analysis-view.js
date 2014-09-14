@@ -28,29 +28,28 @@ app.SentimentAnalysisView = Backbone.View.extend({
             // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
             chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
         }
-        
+
         // generate some random data, quite different range
-        function generateChartData(analysis) {
+        function generateChartData(thread) {
             var chartData = [];
-            var firstDate = new Date();
-            firstDate.setDate(firstDate.getDate() - 5);
+            console.log('thread', thread);
+            _.each(thread.comments, function(comment) {
+                var person1 = thread.members[0].name;
+                var person2 = thread.members[1].name;
 
-            for (var i = -100; i < 100; i++) {
-                // we create date objects here. In your data, you can have date strings
-                // and then set format of your dates using chart.dataDateFormat property,
-                // however when possible, use date objects, as this will speed up chart rendering.
-                var newDate = new Date(firstDate);
-                newDate.setDate(newDate.getDate() + i);
-
-                var visits1 = Math.round(Math.random() * (40 + i / 5)) + 20 + i;
-                var visits2 = Math.round(Math.random() * (40 + i / 5)) + 20 + i;
- 
-                chartData.push({
-                    date: newDate,
-                    visits1: visits1,
-                    visits2: visits2
-                });
-            }
+                var chart_item = {
+                    date: new Date(comment.created_time),
+                };
+                var sentiment_field = '';
+                if (comment.from.name == person1) {
+                    sentiment_field = 'sentiment1';
+                } else {
+                    sentiment_field = 'sentiment2';
+                }
+                chart_item[sentiment_field] = comment.sentiment.score;
+                chartData.push(chart_item);
+            });
+            console.log('chart data', chartData);
             return chartData;
         }
 
@@ -82,8 +81,9 @@ app.SentimentAnalysisView = Backbone.View.extend({
                 "bulletColor":"#FFFFFF",
                 "hideBulletsCount": 50,
                 "title": "red line",
-                "valueField": "visits1",
-                "useLineColorForBulletBorder":true
+                "valueField": "sentiment1",
+                "useLineColorForBulletBorder":true,
+                "type": "smoothedLine"
             },
             {
                 "id":"g2",
@@ -93,8 +93,9 @@ app.SentimentAnalysisView = Backbone.View.extend({
                 "bulletColor":"#FFFFFF",
                 "hideBulletsCount": 50,
                 "title": "red line",
-                "valueField": "visits2",
-                "useLineColorForBulletBorder":true
+                "valueField": "sentiment2",
+                "useLineColorForBulletBorder":true,
+                "type": "smoothedLine"
             }],
             "chartScrollbar": {
                 "autoGridCount": true,
@@ -109,7 +110,8 @@ app.SentimentAnalysisView = Backbone.View.extend({
                 "parseDates": true,
                 "axisColor": "#DADADA",
                 "dashLength": 1,
-                "minorGridEnabled": true
+                "minorGridEnabled": true,
+                "minPeriod": "mm"
             },
             "exportConfig":{
               menuRight: '20px',
