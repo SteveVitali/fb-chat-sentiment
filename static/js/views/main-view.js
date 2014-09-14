@@ -62,6 +62,7 @@ app.MainView = Backbone.View.extend({
 
     analyzeThread: function(thread) {
         var that = this;
+        createSpinner();
         console.log('begin analysis of', thread);
         $.ajax({
             type : 'POST',
@@ -76,6 +77,7 @@ app.MainView = Backbone.View.extend({
                     var sentiment_view = new app.SentimentAnalysisView(analysis.thread, that);
                     that.$el.html(sentiment_view.render().el);
                     sentiment_view.drawGraph();
+                    spinner.stop();
                 });
             }
         });

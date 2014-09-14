@@ -117,7 +117,7 @@ app.SentimentAnalysisView = Backbone.View.extend({
               menuBottom: '30px',
               menuItems: [{
               icon: 'http://www.amcharts.com/lib/3/images/export.png',
-              format: 'png'   
+              format: 'png'
               }]  
             }
         });
