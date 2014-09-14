@@ -34,20 +34,25 @@ app.SentimentAnalysisView = Backbone.View.extend({
             var chartData = [];
             console.log('thread', thread);
             _.each(thread.comments, function(comment) {
-                var person1 = thread.members[0].name;
-                var person2 = thread.members[1].name;
+                if (comment) {
+                    var person1 = thread.members[0].name;
+                    var person2 = thread.members[1].name;
 
-                var chart_item = {
-                    date: new Date(comment.created_time),
-                };
-                var sentiment_field = '';
-                if (comment.from.name == person1) {
-                    sentiment_field = 'sentiment1';
-                } else {
-                    sentiment_field = 'sentiment2';
+                    var chart_item = {
+                        date: new Date(comment.created_time),
+                    };
+                    var sentiment_field = '';
+                    if (comment.from.name == person1) {
+                        sentiment_field = 'sentiment1';
+                    } else {
+                        sentiment_field = 'sentiment2';
+                    }
+                    chart_item['name'] = comment.from.name;
+                    chart_item['message'] = comment.message;
+                    chart_item['date_string'] = formatDate(new Date(comment.created_time));
+                    chart_item[sentiment_field] = comment.sentiment.score;
+                    chartData.push(chart_item);
                 }
-                chart_item[sentiment_field] = comment.sentiment.score;
-                chartData.push(chart_item);
             });
             console.log('chart data', chartData);
             return chartData;
@@ -75,7 +80,12 @@ app.SentimentAnalysisView = Backbone.View.extend({
             "mouseWheelZoomEnabled":true,
             "graphs": [{
                 "id":"g1",
-                "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+                "balloonText": ""+
+                    "<b>[[name]]:</b> [[message]]"+
+                    "<br>"+
+                    "<b>Value:</b> [[value]]</span>"+
+                    "<br>"+
+                    "<b>Date: </b>[[date_string]]",
                 "bullet": "round",
                 "bulletBorderAlpha": 1,
                 "bulletColor":"#FFFFFF",
@@ -87,7 +97,12 @@ app.SentimentAnalysisView = Backbone.View.extend({
             },
             {
                 "id":"g2",
-                "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+                "balloonText": ""+
+                    "<b>[[name]]:</b> [[message]]"+
+                    "<br>"+
+                    "<b>Value:</b> [[value]]</span>"+
+                    "<br>"+
+                    "<b>Date: </b>[[date_string]]",
                 "bullet": "round",
                 "bulletBorderAlpha": 1,
                 "bulletColor":"#FFFFFF",

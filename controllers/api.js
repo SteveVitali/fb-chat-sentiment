@@ -64,7 +64,9 @@ exports.analyzeSentiment = function(req, res) {
 		if (thread) {
 			console.log('Analyzing sentiment for thread with members', _.pluck(thread.members, 'name'));
 			_.each(thread.comments, function(comment) {
-				comment.sentiment = sentiment(comment.message);
+				if (comment) {
+					comment.sentiment = sentiment(comment.message);
+				}
 			});
 			thread.save(function(err, thread) {
 				if (err) { return console.log(err); }

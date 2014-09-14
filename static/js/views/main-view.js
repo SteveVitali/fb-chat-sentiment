@@ -35,6 +35,7 @@ app.MainView = Backbone.View.extend({
     },
 
     loadThreads: function(url) {
+        createSpinner();
         var that = this;
         FB.api(url || '/me/inbox', function(response) {
             console.log('welp', response);
@@ -50,6 +51,7 @@ app.MainView = Backbone.View.extend({
     },
     
     displayThreads: function() {
+        spinner.stop();
         var that = this;
         _.each(this.threads.data, function(thread) {
             // Omit conversations with more than 2 people for now
