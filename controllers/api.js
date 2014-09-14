@@ -1,5 +1,6 @@
-var _ 	   = require('underscore'),
-	models = require('../models/index');
+var _ 	      = require('underscore'),
+	sentiment = require('sentiment'),
+	models    = require('../models/index');
 
 exports.index = function(req, res) {
 	res.render('index', {});
@@ -26,7 +27,7 @@ exports.createThread = function(req, res) {
 				res.send(new_thread);
 			})
 		}
-	})
+	});
 }
 
 exports.analyzeSentiment = function(req, res) {
@@ -35,7 +36,13 @@ exports.analyzeSentiment = function(req, res) {
 		if (err) { return console.log(err); }
 		if (thread) {
 			console.log('Analyzing sentiment for thread with members', _.pluck(thread.members, 'name'));
-			res.send({ analysis: 'welp welp welp' });
+			_.each(thread.comments, function(comment) {
+				comment.sentiment = sentiment(comment.message);
+			});
+			thread.save(function(err, thread) {
+				if (err) { return console.log(err); }
+				res.send({ thread: thread });
+			});
 		} else {
 			res.send('Thread does not exist in DB');
 		}

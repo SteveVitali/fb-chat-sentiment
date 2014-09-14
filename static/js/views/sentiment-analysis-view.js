@@ -28,14 +28,14 @@ app.SentimentAnalysisView = Backbone.View.extend({
             // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
             chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
         }
-
+        
         // generate some random data, quite different range
         function generateChartData(analysis) {
             var chartData = [];
             var firstDate = new Date();
             firstDate.setDate(firstDate.getDate() - 5);
 
-            for (var i = 0; i < 1000; i++) {
+            for (var i = -100; i < 100; i++) {
                 // we create date objects here. In your data, you can have date strings
                 // and then set format of your dates using chart.dataDateFormat property,
                 // however when possible, use date objects, as this will speed up chart rendering.

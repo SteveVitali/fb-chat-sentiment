@@ -13,7 +13,15 @@ var ThreadSchema = mongoose.Schema({
             name: String
         },
         id: String,
-        message: String
+        message: String,
+        sentiment: {
+            score: Number,
+            comparative: Number,
+            tokens: [String],
+            words: [String],
+            positive: [String],
+            negative: [String]
+        }
     }],
     next_comments_url: String,
 });
