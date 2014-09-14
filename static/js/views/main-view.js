@@ -8,7 +8,7 @@ app.MainView = Backbone.View.extend({
         'click .analyze-fb': 'analyzeFBMessages'
     },
     
-    initialize: function(initial_data) {
+    initialize: function() {
         this.subviews = {};
         this.threads = { data: []};
         // Other stuff
@@ -48,7 +48,7 @@ app.MainView = Backbone.View.extend({
             }
         });
     },
-
+    
     displayThreads: function() {
         var that = this;
         _.each(this.threads.data, function(thread) {
@@ -61,6 +61,7 @@ app.MainView = Backbone.View.extend({
     },
 
     analyzeThread: function(thread) {
+        var that = this;
         console.log('begin analysis of', thread);
         $.ajax({
             type : 'POST',
@@ -72,6 +73,9 @@ app.MainView = Backbone.View.extend({
                 console.log('Now going to analyze dat sentiment');
                 $.get('/thread/'+new_thread._id+'/analyze-sentiment', function(analysis) {
                     console.log('Got some analysis and cached it in the DB', analysis);
+                    var sentiment_view = new app.SentimentAnalysisView(analysis, that);
+                    that.$el.html(sentiment_view.render().el);
+                    sentiment_view.drawGraph();
                 });
             }
         });

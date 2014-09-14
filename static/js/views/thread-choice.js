@@ -22,7 +22,7 @@ app.ThreadChoiceView = Backbone.View.extend({
         return this;
     },
 
-    analyzeThread: function(e) {
+    analyzeThread: function() {
         this.parentView.analyzeThread(this.model);
     }
 });
