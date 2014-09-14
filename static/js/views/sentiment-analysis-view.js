@@ -107,7 +107,6 @@ app.SentimentAnalysisView = Backbone.View.extend({
             },
             "categoryField": "date",
             "categoryAxis": {
-                "parseDates": true,
                 "axisColor": "#DADADA",
                 "dashLength": 1,
                 "minorGridEnabled": true,
