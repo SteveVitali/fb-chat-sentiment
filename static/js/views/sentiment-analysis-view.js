@@ -30,7 +30,7 @@ app.SentimentAnalysisView = Backbone.View.extend({
         }
 
         // generate some random data, quite different range
-        function generateChartData() {
+        function generateChartData(analysis) {
             var chartData = [];
             var firstDate = new Date();
             firstDate.setDate(firstDate.getDate() - 5);
@@ -42,17 +42,19 @@ app.SentimentAnalysisView = Backbone.View.extend({
                 var newDate = new Date(firstDate);
                 newDate.setDate(newDate.getDate() + i);
 
-                var visits = Math.round(Math.random() * (40 + i / 5)) + 20 + i;
+                var visits1 = Math.round(Math.random() * (40 + i / 5)) + 20 + i;
+                var visits2 = Math.round(Math.random() * (40 + i / 5)) + 20 + i;
  
                 chartData.push({
                     date: newDate,
-                    visits: visits
+                    visits1: visits1,
+                    visits2: visits2
                 });
             }
             return chartData;
         }
 
-        var chartData = generateChartData();
+        var chartData = generateChartData(this.model);
         var chart = AmCharts.makeChart("chartdiv", {
             "type": "serial",
             "theme": "none",
@@ -61,8 +63,16 @@ app.SentimentAnalysisView = Backbone.View.extend({
             "valueAxes": [{
                 "axisAlpha": 0.2,
                 "dashLength": 1,
-                "position": "left"
+                "position": "left",
+                "axisColor": "#FF6600",
+            },
+            {
+                "axisAlpha": 0.2,
+                "dashLength": 1,
+                "position": "left",
+                "axisColor": "#FCD202",
             }],
+
             "mouseWheelZoomEnabled":true,
             "graphs": [{
                 "id":"g1",
@@ -72,7 +82,18 @@ app.SentimentAnalysisView = Backbone.View.extend({
                 "bulletColor":"#FFFFFF",
                 "hideBulletsCount": 50,
                 "title": "red line",
-                "valueField": "visits",
+                "valueField": "visits1",
+                "useLineColorForBulletBorder":true
+            },
+            {
+                "id":"g2",
+                "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+                "bullet": "round",
+                "bulletBorderAlpha": 1,
+                "bulletColor":"#FFFFFF",
+                "hideBulletsCount": 50,
+                "title": "red line",
+                "valueField": "visits2",
                 "useLineColorForBulletBorder":true
             }],
             "chartScrollbar": {
